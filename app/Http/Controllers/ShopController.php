@@ -11,14 +11,12 @@ class ShopController extends Controller
 {
     public function home()
     {
-        return view('home', [
-            'products' => Product::all()->take(8),
-            'categories' => Category::all()->take(4)
-        ]);
+        return view('hom', ['products' => Product::all()->take(8),'categories' => Category::all()->take(4)]);
     }
 
     public function index(Request $request){
 
+        // searching 
         $search_keywords = explode(' ', trim(preg_replace('/\s+/',' ',$request->query('search'))));
 
         $products = Product::when(! empty($search_keywords), function(Builder $query) use ($search_keywords){

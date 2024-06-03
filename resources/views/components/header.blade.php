@@ -9,9 +9,13 @@
         </form>
         <ul class="flex_align">
             <li>
-                <a style="width: 2rem" class="logo-link d-b" href="{{ route('login') }}">
+                <a style="width: 2rem" class="logo-link d-b" href="{{ route('login') }}" >
                     @if (auth()->check())
-                        <span class="material-icons">perm_identity</span>
+                        <!-- <span class="material-icons">perm_identity</span> -->
+                        <span>                        <img class="material-icons" src="{{ asset('storage/avatar/admin.jpg') }}" alt="user">
+ </span>
+ 
+                        {{ auth()->user()->full_name }}
                     @else
                         Login
                     @endif

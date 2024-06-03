@@ -41,6 +41,7 @@ class ProductController extends Controller
         ]);
 
         $path = Storage::putFile('products', $validated['image']);
+        // $path= $request->image->storeAs('public/products',$validated['image']);
 
         $product = new Product();
         $category = Category::find($validated['category_id']);

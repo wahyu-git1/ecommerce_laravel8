@@ -27,7 +27,18 @@
                                         <img class="d-b" src="{{ asset('storage/'.$product->image) }}" alt="{{ $product->title }}">
                                         <div class="details">
                                             <a href="{{route('product', ['product' => $product->id])}}" class="m-0">{{ ucfirst($product->title) }}</a>
-                                            <p>price: ${{$product->price}}</p>
+                                            <!-- <p>price: Rp. {{$product->price}}</p> -->
+                                            <p>
+                                                @if($product->discount > 0)
+                                                <s>Rp. {{ number_format($product->price) }} </s> {{ $product->discount }}%
+                                                @else
+                                                    Rp. {{ number_format($product->price) }}%
+                                                @endif
+                                                </p>
+                                                @if($product->discount > 0)
+                                                    <p> <b> Rp. {{$product->diskonlabel}}</b></p>
+                                                @endif
+
                                             @auth
                                                 <form action="{{ route('rfc', ['product' => $product->id]) }}" method="post">
                                                     @csrf
@@ -47,7 +58,16 @@
                                     @endauth
                                     <input type="number" min="1" max="20" onchange="updateQuantity({{$product->id}}, this, {{auth()->check()}})" value="{{$product->quantity}}">
                                 </td>
-                                <td  class="productTotal">${{$product->price*$product->quantity}}</td>
+                                <td  class="productTotal">
+                                <!-- ${{$product->price*$product->quantity}} -->
+                                @if($product->discount > 0)
+                                <p>Rp. {{ number_format(((1 - ($product->discount / 100)) * $product->price)*$product->quantity) }}</p>
+                                @else
+                                   <p> {{$product->price*$product->quantity}}</P>
+                                @endif
+                           
+                            
+                            </td>
                             </tr>
                         @endforeach
                     </tbody>

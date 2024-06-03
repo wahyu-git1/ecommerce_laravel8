@@ -27,6 +27,7 @@
     {{ $slot }}
     {{-- main contents --}}
     <footer>
+        
         <div class="footer-links _container flex_align">
             @each('components.temp', range(1, 4), 'link')
         </div>
